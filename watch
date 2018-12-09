@@ -1,0 +1,25 @@
+#!/bin/bash -ex
+# run as root
+
+. ./config
+
+set -ex
+
+mkdir -p $ledir
+mkdir -p $watchdir
+chown -R noyuno.noyuno $watchdir
+touch $watchdir/trig
+
+move() {
+    if [ -e "$watchdir/$1" ]; then
+        mv $watchdir/$1 $ledir/$1
+        chown root.root $ledir/$1
+    fi
+}
+
+while inotifywait -e MODIFY -e CREATE $watchdir/trig; do
+    move fullchain.pem
+    move privkey.pem
+    systemctl reload nginx
+done
+

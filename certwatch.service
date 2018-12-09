@@ -1,0 +1,14 @@
+[Unit]
+Description=cert watcher
+
+[Service]
+User=root
+WorkingDirectory=/home/noyuno/cert
+ExecStart=/home/noyuno/cert/watch
+Restart = on-failure
+RestartSec = 15s
+StartLimitBurst = 5
+
+[Install]
+WantedBy=multi-user.target
+

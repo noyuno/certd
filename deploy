@@ -1,0 +1,20 @@
+#!/bin/bash -ex
+
+. ./config
+
+set -ex
+
+systemctl reload nginx
+
+touch /tmp/trig
+mkdir -p $deploybase/send
+cp $ledir/fullchain.pem $ledir/privkey.pem $deploybase/send
+chmod -R +r $deploybase/send
+for c in ${child[@]}; do
+    sudo -u noyuno scp -P 4022 -i $deploybase/id_rsa \
+        $deploybase/send/fullchain.pem \
+        $deploybase/send/privkey.pem \
+        /tmp/trig $user@$c:$watchdir
+done
+rm -rf $deploybase/send
+

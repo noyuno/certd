@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+. ./config
+sudo apt install inotify-tools
+sudo cp $watchbase/certwatch.service /etc/systemd/system/certwatch.service
+sudo systemctl enable certwatch
+sudo systemctl start certwatch
+
