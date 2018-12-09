@@ -1,4 +1,4 @@
-# cert
+# certd
 
 deploy Let's Encrypt certificates with SSH
 
