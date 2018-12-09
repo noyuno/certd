@@ -7,7 +7,7 @@ set -ex
 
 mkdir -p $ledir
 mkdir -p $watchdir
-chown -R noyuno.noyuno $watchdir
+chown -R $user.$user $watchdir
 touch $watchdir/trig
 
 move() {

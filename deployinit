@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+. ./config
+
 cat << EOF | sudo tee /etc/cron.d/certbot
 # /etc/cron.d/certbot: crontab entries for the certbot package
 #
@@ -11,6 +13,6 @@ cat << EOF | sudo tee /etc/cron.d/certbot
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system && perl -e 'sleep int(rand(43200))' && certbot -q renew --webroot -w /var/www/cert --renew-hook /home/noyuno/cert/deploy --allow-subset-of-names
+0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system && perl -e 'sleep int(rand(43200))' && certbot -q renew --webroot -w /var/www/cert --renew-hook $deploybase/deploy --allow-subset-of-names
 EOF
 

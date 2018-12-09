@@ -3,14 +3,8 @@
 domain=noyuno.space
 child=(pi.noyuno.space v.noyuno.space)
 user=noyuno
-no=$(cat /home/$user/dotfiles/server/letsencrypt-no)
-if [ "y$no" != "y" ] ; then
-    store=$domain-$no
-else
-    store=$domain
-fi
 ledir=/etc/letsencrypt/live/$store
-watchbase=/home/$user/cert
-deploybase=/home/$user/cert
+watchbase=$(cd $(dirname $0); pwd)
+deploybase=$(cd $(dirname $0); pwd)
 watchdir=$watchbase/recv
 
